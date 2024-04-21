@@ -76,6 +76,10 @@ class TeacherSerializer(serializers.ModelSerializer):
             "interview_rating",
             "total_rating",
             "remunerations",
+            "available_slot",
+            "filled_slot",
+            "additional_info"
+
             # "remunerations_details"
         ]
 
@@ -184,6 +188,8 @@ class SimpleTeacherSerializer(serializers.ModelSerializer):
             "total_rating",
             "date",
             "about",
+            "available_slot",
+            "filled_slot",
             
         ]
 

@@ -84,6 +84,9 @@ class Teachers(models.Model):
     qualification = models.CharField(max_length=255, null=True, blank=True)
     black_list = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
+    available_slot = models.IntegerField(default=0)
+    filled_slot = models.IntegerField(default=0)
+    additional_info = models.TextField(null=True, blank=True)
 
 # @receiver(pre_delete, sender=Subject)
 # def protect_subject_delete(sender, instance, **kwargs):
