@@ -84,8 +84,8 @@ class Teachers(models.Model):
     qualification = models.CharField(max_length=255, null=True, blank=True)
     black_list = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
-    available_slot = models.IntegerField(default=0)
-    filled_slot = models.IntegerField(default=0)
+    available_slot = models.CharField(max_length=7, null=True, blank=True)
+    filled_slot = models.CharField(max_length=7, null=True, blank=True)
     additional_info = models.TextField(null=True, blank=True)
 
 # @receiver(pre_delete, sender=Subject)
