@@ -14,13 +14,27 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 
+# Load environment variables from .env
+env_path = '/var/www/tcsapi_qlive/qlive/.env'
+load_dotenv(dotenv_path=env_path)
+#load_dotenv()
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-
-# Load environment variables from .env
-load_dotenv()
+# Database settings
+DATABASES = {
+    'default': {
+        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.sqlite3'),
+        'NAME': os.getenv('DB_NAME', BASE_DIR / 'db.sqlite3'),
+        'USER': os.getenv('DB_USER', ''),
+        'PASSWORD': os.getenv('DB_PASSWORD', ''),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', '3306'),
+    }
+}
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -29,9 +43,12 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY', 'mydefaultsecretkey')
 
 # SECURITY WARNING: don't run with debug turned on in production!
+#DEBUG = os.getenv('DEBUG', 'True') == 'True'
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+ALLOWED_HOSTS = ['.qlivelearn.in']
+
 
 
 # Application definition
@@ -119,24 +136,6 @@ WSGI_APPLICATION = 'qlive.wsgi.application'
 #     }
 # }
 
-
-# Database settings
-DATABASES = {
-    'default': {
-        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': os.getenv('DB_NAME', BASE_DIR / 'db.sqlite3'),
-        'USER': os.getenv('DB_USER', ''),
-        'PASSWORD': os.getenv('DB_PASSWORD', ''),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
-        'PORT': os.getenv('DB_PORT', '3306'),
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-            'charset': 'utf8mb4',
-            'collation': 'utf8mb4_unicode_ci',
-        },
-    }
-}
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
@@ -182,9 +181,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+#STATIC_URL = '/static/'
+#STATICFILES_DIRS = [BASE_DIR / 'static']
+#STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_URL='/static/'
+STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles/') 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -200,13 +201,3 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 EMAIL_PORT = int(os.getenv('EMAIL_PORT', '2587'))
 # DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'info@qlivelear.in')
-
-
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'smtp.zoho.com'
-# EMAIL_HOST_USER = 'info@qlivelear.in'
-# EMAIL_HOST_PASSWORD = 'Qliveshadan9746@'
-# # EMAIL_HOST_PASSWORD = '9895Muha#'
-# EMAIL_PORT = 465 
-# # DEFAULT_FROM_EMAIL = 'AYESHA ZIYA'
